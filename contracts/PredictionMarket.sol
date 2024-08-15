@@ -47,8 +47,8 @@ contract CryptoPredictionMarket {
 
         markets[marketId].resolved = true;
 
-        // Here you could implement logic to distribute rewards based on the outcome
+        // could implement logic to distribute rewards based on the outcome
         // Example: If outcome is true, distribute points to the bettors who bet on true
-        // This is a simplified version, and the full implementation would depend on your logic
+        
     }
 }
