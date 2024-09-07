@@ -3,16 +3,17 @@ import { contract, web3 } from '../web3';
 
 const ResolveMarket = () => {
   const [marketId, setMarketId] = useState('');
-  const [outcome, setOutcome] = useState(false);
+  const [targetPrice, setTargetPrice] = useState(''); // Add target price input
 
   const resolveMarket = async () => {
     try {
       const accounts = await web3.eth.getAccounts();
 
-      await contract.methods.resolveMarket(marketId, outcome).send({
+      // Call the smart contract's resolveMarket function
+      await contract.methods.resolveMarket(marketId, targetPrice).send({
         from: accounts[0],
-        gasPrice: web3.utils.toWei('20', 'gwei'), // Specify gasPrice to avoid EIP-1559 errors
-        gas: 3000000, // Set a gas limit
+        gasPrice: web3.utils.toWei('20', 'gwei'),
+        gas: 3000000,
       });
 
       alert('Market resolved successfully!');
@@ -32,14 +33,12 @@ const ResolveMarket = () => {
         value={marketId} 
         onChange={e => setMarketId(e.target.value)} 
       />
-      <label>
-        <input 
-          type="checkbox" 
-          checked={outcome} 
-          onChange={() => setOutcome(!outcome)} 
-        />
-        Outcome (True/False)
-      </label>
+      <input 
+        type="text" 
+        placeholder="Target Price" 
+        value={targetPrice} 
+        onChange={e => setTargetPrice(e.target.value)} 
+      />
       <button onClick={resolveMarket}>Resolve Market</button>
     </div>
   );
